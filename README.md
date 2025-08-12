@@ -1,14 +1,13 @@
 | 프로젝트 기간 | 25.08.12 ~                                                  |
 | ------------- | ----------------------------------------------------------- |
 | 프로젝트 목적 | ai agent (crewai, autogen, openai sdk, googl adk, langraph) |
-| Github        |                                                             |
+| Github        | https://github.com/Jinwook-Song/ai_playground               |
 | Docs          | https://platform.openai.com/docs/pricing                    |
 |               |                                                             |
 
 ---
 
 - basic
-
   ```python
   import openai
 
@@ -27,9 +26,7 @@
       print(choice.message.content)
 
   ```
-
 - agent의 동작 방식
-
   ```python
   import openai
 
@@ -61,16 +58,13 @@
   )
 
   ```
-
 - simple chatbot with memory
-
   ```python
   import openai
 
   client = openai.OpenAI()
   messages = []
   ```
-
   ```python
   def call_ai():
       response = client.chat.completions.create(
@@ -83,7 +77,6 @@
       return message
 
   ```
-
   ```python
   while True:
       message = input("Send a message to the LLM...")
@@ -95,9 +88,7 @@
           response = call_ai()
           print(f"Assistant: {response}")
   ```
-
 - tool
-
   ```python
   import openai
   import json
@@ -105,7 +96,6 @@
   client = openai.OpenAI()
   messages = []
   ```
-
   ```python
   def get_weather(city):
       return f"The weather in {city} is sunny."
@@ -115,7 +105,6 @@
   }
 
   ```
-
   ```python
   TOOLS = [
       {
@@ -137,7 +126,6 @@
       }
   ]
   ```
-
   ```python
   from openai.types.chat import ChatCompletionMessage
 
@@ -201,7 +189,6 @@
       process_ai_response(response.choices[0].message)
 
   ```
-
   ```python
   while True:
       message = input("Send a message to the LLM...")
@@ -213,5 +200,3 @@
           call_ai()
 
   ```
-
-  `
