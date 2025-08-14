@@ -3,7 +3,7 @@
 | 프로젝트 목적 | ai agent (crewai, autogen, openai sdk, googl adk, langraph) |
 | Github        | https://github.com/Jinwook-Song/ai_playground               |
 | Docs          | https://platform.openai.com/docs/pricing                    |
-|               |                                                             |
+| Docs          | https://docs.crewai.com/ko/introduction                     |
 
 ---
 
@@ -200,3 +200,44 @@
           call_ai()
 
   ```
+
+---
+
+## CrewAI
+
+main.py
+
+```
+import dotenv
+from crewai import Agent, Crew, Task
+from crewai.project import CrewBase, agent, crew, task
+
+dotenv.load_dotenv()
+
+@CrewBase
+class TranslatorCrew:
+    @agent
+    def translator_agent(self) -> Agent:
+        return Agent(config=self.agents_config["translator_agent"])
+
+    @task
+    def translate_task(self) -> Task:
+        return Task(config=self.tasks_config["translate_task"])
+
+    @crew
+    def assemble_crew(self) -> Crew:
+        return Crew(
+            agents=self.agents,
+            tasks=self.tasks,
+            verbose=True,
+        )
+
+TranslatorCrew().assemble_crew().kickoff(
+    inputs={
+        "article": "The news article is about the latest technology trends in the world.",
+    }
+)
+
+```
+
+cur

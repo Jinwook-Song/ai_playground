@@ -1,0 +1,13 @@
+translate_task:
+  description: >
+    Translate {article} into Korean
+  expected_output: >
+    A well-structured Korean translation of the article.
+  agent: translator_agent
+
+retranslate_task:
+  description: >
+    Translate {article} into Japanese
+  expected_output: >
+    A well-structured Japanese translation of the article.
+  agent: translator_agent
