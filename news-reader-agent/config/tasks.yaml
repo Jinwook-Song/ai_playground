@@ -1,13 +1,20 @@
 translate_task:
   description: >
-    Translate {article} into Korean
+    Translate {sentence} into Korean
   expected_output: >
-    A well-structured Korean translation of the article.
+    A well-structured Korean translation of the sentence.
   agent: translator_agent
 
 retranslate_task:
   description: >
-    Translate {article} into Japanese
+    Translate {sentence} into Japanese
   expected_output: >
-    A well-structured Japanese translation of the article.
+    A well-structured Japanese translation of the sentence.
   agent: translator_agent
+
+count_task:
+  description: >
+    Count the number of letters in the sentence
+  expected_output: >
+    The number of letters in the sentence.
+  agent: counter_agent

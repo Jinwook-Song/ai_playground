@@ -205,39 +205,100 @@
 
 ## CrewAI
 
-main.py
+- basic
+  main.py
+  ```
+  import dotenv
+  from crewai import Agent, Crew, Task
+  from crewai.project import CrewBase, agent, crew, task
 
-```
-import dotenv
-from crewai import Agent, Crew, Task
-from crewai.project import CrewBase, agent, crew, task
+  dotenv.load_dotenv()
 
-dotenv.load_dotenv()
+  @CrewBase
+  class TranslatorCrew:
+      @agent
+      def translator_agent(self) -> Agent:
+          return Agent(config=self.agents_config["translator_agent"])
 
-@CrewBase
-class TranslatorCrew:
-    @agent
-    def translator_agent(self) -> Agent:
-        return Agent(config=self.agents_config["translator_agent"])
+      @task
+      def translate_task(self) -> Task:
+          return Task(config=self.tasks_config["translate_task"])
 
-    @task
-    def translate_task(self) -> Task:
-        return Task(config=self.tasks_config["translate_task"])
+      @crew
+      def assemble_crew(self) -> Crew:
+          return Crew(
+              agents=self.agents,
+              tasks=self.tasks,
+              verbose=True,
+          )
 
-    @crew
-    def assemble_crew(self) -> Crew:
-        return Crew(
-            agents=self.agents,
-            tasks=self.tasks,
-            verbose=True,
-        )
+  TranslatorCrew().assemble_crew().kickoff(
+      inputs={
+          "article": "The news article is about the latest technology trends in the world.",
+      }
+  )
 
-TranslatorCrew().assemble_crew().kickoff(
-    inputs={
-        "article": "The news article is about the latest technology trends in the world.",
-    }
-)
+  ```
+- tool
+  main.py
+  ```python
+  import dotenv
+  from crewai import Agent, Crew, Task
+  from crewai.project import CrewBase, agent, crew, task
 
-```
+  from tools import count_letters
 
-cur
+  dotenv.load_dotenv()
+
+  @CrewBase
+  class TranslatorCrew:
+      @agent
+      def translator_agent(self) -> Agent:
+          return Agent(config=self.agents_config["translator_agent"])
+
+      @agent
+      def counter_agent(self) -> Agent:
+          return Agent(
+              config=self.agents_config["counter_agent"],
+              tools=[count_letters],
+          )
+
+      @task
+      def translate_task(self) -> Task:
+          return Task(config=self.tasks_config["translate_task"])
+
+      @task
+      def retranslate_task(self) -> Task:
+          return Task(config=self.tasks_config["retranslate_task"])
+
+      @task
+      def count_task(self) -> Task:
+          return Task(config=self.tasks_config["count_task"])
+
+      @crew
+      def assemble_crew(self) -> Crew:
+          return Crew(
+              agents=self.agents,
+              tasks=self.tasks,
+              verbose=True,
+          )
+
+  TranslatorCrew().assemble_crew().kickoff(
+      inputs={
+          "sentence": "I'm a software engineer, my name is Jinwook",
+      }
+  )
+
+  ```
+  tools.py
+  ```python
+  from crewai.tools import tool
+
+  @tool
+  def count_letters(sentence: str) -> int:
+      """
+      Count the number of letters in the sentence
+      """
+      return len(sentence)
+
+  ```
