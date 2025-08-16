@@ -3,6 +3,7 @@ import dotenv
 
 from crewai import Crew, Agent, Task
 from crewai.project import CrewBase, agent, task, crew
+from tools import search_tool, scrape_tool
 
 dotenv.load_dotenv()
 
@@ -13,12 +14,17 @@ class NewsReaderAgent:
     def news_hunter_agent(self):
         return Agent(
             config=self.agents_config["news_hunter_agent"],
+            tools=[
+                search_tool,
+                scrape_tool,
+            ],
         )
 
     @agent
     def summarizer_agent(self):
         return Agent(
             config=self.agents_config["summarizer_agent"],
+            tools=[scrape_tool],
         )
 
     @agent
@@ -54,4 +60,4 @@ class NewsReaderAgent:
         )
 
 
-NewsReaderAgent().crew().kickoff()
+NewsReaderAgent().crew().kickoff(input={"topic": "Putin Trump negotiation"})
