@@ -3,10 +3,14 @@ import dotenv
 
 from crewai import Agent, Crew, Task
 from crewai.project import CrewBase, agent, crew, task
+from crewai.knowledge.source.text_file_knowledge_source import TextFileKnowledgeSource
 from models import JobList, RankedJobList, ChosenJob
+from tools import web_search_tool
 
 
 dotenv.load_dotenv()
+
+knowledge_source = TextFileKnowledgeSource(file_path=["resume.txt"])
 
 
 @CrewBase
@@ -16,30 +20,36 @@ class JobHunterCrew:
     def job_search_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["job_search_agent"],
+            tools=[web_search_tool],
         )
 
     @agent
     def job_matching_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["job_matching_agent"],
+            knowledge_sources=[knowledge_source],
         )
 
     @agent
     def resume_optimization_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["resume_optimization_agent"],
+            knowledge_sources=[knowledge_source],
         )
 
     @agent
     def company_research_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["company_research_agent"],
+            knowledge_sources=[knowledge_source],
+            tools=[web_search_tool],
         )
 
     @agent
     def interview_prep_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["interview_prep_agent"],
+            knowledge_sources=[knowledge_source],
         )
 
     #################### TASKS ####################
@@ -104,4 +114,17 @@ class JobHunterCrew:
         )
 
 
-JobHunterCrew().crew().kickoff()
+result = (
+    JobHunterCrew()
+    .crew()
+    .kickoff(
+        inputs={
+            "level": "Senior",
+            "position": "Golang Developer",
+            "location": "Germany",
+        }
+    )
+)
+
+for task_output in result.tasks_output:
+    print(task_output.pydantic)
