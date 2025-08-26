@@ -60,4 +60,6 @@ class NewsReaderAgent:
         )
 
 
-NewsReaderAgent().crew().kickoff(input={"topic": "Putin Trump negotiation"})
+NewsReaderAgent().crew().kickoff(
+    inputs={"topic": "Putin Trump negotiation"},
+)

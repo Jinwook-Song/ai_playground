@@ -1,12 +1,16 @@
 import time
+from crewai.tools import tool
 from crewai_tools import SerperDevTool
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 
 # Initialize the tool for internet searching capabilities
-tool = SerperDevTool()
+search_tool = SerperDevTool(
+    n_results=30,
+)
 
 
+@tool
 def scrape_tool(url: str) -> str:
     """
     Scrape the content of a given URL\
@@ -58,13 +62,6 @@ def scrape_tool(url: str) -> str:
         for tag in soup.find_all(unwanted_tags):
             tag.decompose()
 
-        content = soup.get_text(separator="\n", strip=True)
+        content = soup.get_text(separator=" ", strip=True)
 
         return content if content else "Website not available"
-
-
-print(
-    scrape_tool(
-        "https://www.nytimes.com/2025/08/16/us/politics/biden-federal-reserve.html"
-    )
-)
