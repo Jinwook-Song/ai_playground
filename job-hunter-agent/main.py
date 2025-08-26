@@ -3,12 +3,15 @@ import dotenv
 
 from crewai import Agent, Crew, Task
 from crewai.project import CrewBase, agent, crew, task
+from models import JobList, RankedJobList, ChosenJob
+
 
 dotenv.load_dotenv()
 
 
 @CrewBase
 class JobHunterCrew:
+    #################### AGENTS ####################
     @agent
     def job_search_agent(self) -> Agent:
         return Agent(
@@ -39,22 +42,26 @@ class JobHunterCrew:
             config=self.agents_config["interview_prep_agent"],
         )
 
+    #################### TASKS ####################
     @task
     def job_extraction_task(self) -> Task:
         return Task(
             config=self.tasks_config["job_extraction_task"],
+            output_pydantic=JobList,
         )
 
     @task
     def job_matching_task(self) -> Task:
         return Task(
             config=self.tasks_config["job_matching_task"],
+            output_pydantic=RankedJobList,
         )
 
     @task
     def job_selection_task(self) -> Task:
         return Task(
             config=self.tasks_config["job_selection_task"],
+            output_pydantic=ChosenJob,
         )
 
     @task
@@ -87,6 +94,7 @@ class JobHunterCrew:
             ],
         )
 
+    #################### CREW ####################
     @crew
     def crew(self) -> Crew:
         return Crew(
