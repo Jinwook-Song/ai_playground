@@ -61,18 +61,30 @@ class JobHunterCrew:
     def resume_rewriting_task(self) -> Task:
         return Task(
             config=self.tasks_config["resume_rewriting_task"],
+            context=[
+                # 이전 task에서 이어지기 떄문에 생략 가능
+                self.job_selection_task(),
+            ],
         )
 
     @task
     def company_research_task(self) -> Task:
         return Task(
             config=self.tasks_config["company_research_task"],
+            context=[
+                self.job_selection_task(),
+            ],
         )
 
     @task
     def interview_prep_task(self) -> Task:
         return Task(
             config=self.tasks_config["interview_prep_task"],
+            context=[
+                self.job_selection_task(),
+                self.resume_rewriting_task(),
+                self.company_research_task(),
+            ],
         )
 
     @crew
