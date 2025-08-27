@@ -1,7 +1,9 @@
 from crewai import Agent, LLM
 from crewai.flow.flow import Flow, listen, start, router, or_
+from seo_crew import SeoCrew
 from tools import web_search_tool
 from models import BlogPost, ContentPipelineState, Linkedin, Tweet
+from virality_crew import ViralityCrew
 
 
 class ContentPipelineFlow(Flow[ContentPipelineState]):
@@ -35,7 +37,7 @@ class ContentPipelineFlow(Flow[ContentPipelineState]):
                 """,
             goal=f"Find the most interesting and useful info about {self.state.topic}",
             tools=[web_search_tool],
-            llm="gpt-5-mini-2025-08-07",
+            llm="openai/gpt-5-mini-2025-08-07",
         )
 
         self.state.research = researcher.kickoff(
@@ -60,12 +62,12 @@ class ContentPipelineFlow(Flow[ContentPipelineState]):
         blog_post = self.state.blog_post
 
         llm = LLM(
-            model="gpt-5-mini-2025-08-07",
+            model="openai/gpt-5-mini-2025-08-07",
             response_format=BlogPost,
         )
 
         if blog_post is None:  # make it
-            self.state.blog_post = llm.call(f"""
+            result = llm.call(f"""
             Make a blog post on the topic of {self.state.topic} using the following research:
 
             <research>
@@ -75,7 +77,7 @@ class ContentPipelineFlow(Flow[ContentPipelineState]):
             </research>
             """)
         else:  # improve it
-            self.state.blog_post = llm.call(f"""
+            result = llm.call(f"""
             You wrote this blog post, but it does not have a good SEO score because of {self.state.score.reason}
 
             <goal>
@@ -98,17 +100,19 @@ class ContentPipelineFlow(Flow[ContentPipelineState]):
             =========================
             """)
 
+        self.state.blog_post = BlogPost.model_validate_json(result)
+
     @listen(or_("make_tweet", "remake_tweet"))
     def handle_make_tweet(self):
         tweet = self.state.tweet
 
         llm = LLM(
-            model="gpt-5-mini-2025-08-07",
+            model="openai/gpt-5-mini-2025-08-07",
             response_format=Tweet,
         )
 
         if tweet is None:  # make it
-            self.state.tweet = llm.call(f"""
+            result = llm.call(f"""
             Make a tweet on the topic of {self.state.topic} using the following research:
 
             <research>
@@ -118,7 +122,7 @@ class ContentPipelineFlow(Flow[ContentPipelineState]):
             </research>
             """)
         else:  # improve it
-            self.state.tweet = llm.call(f"""
+            result = llm.call(f"""
             You wrote this tweet, but it does not have a good virality score because of {self.state.score.reason}
 
             <goal>
@@ -142,17 +146,19 @@ class ContentPipelineFlow(Flow[ContentPipelineState]):
             </research>
             """)
 
+        self.state.tweet = Tweet.model_validate_json(result)
+
     @listen(or_("make_linkedin", "remake_linkedin"))
     def handle_make_linkedin(self):
         linkedin = self.state.linkedin
 
         llm = LLM(
-            model="gpt-5-mini-2025-08-07",
+            model="openai/gpt-5-mini-2025-08-07",
             response_format=Linkedin,
         )
 
         if linkedin is None:  # make it
-            self.state.linkedin = llm.call(f"""
+            result = llm.call(f"""
             Make a linkedin post on the topic of {self.state.topic} using the following research:
 
             <research>
@@ -162,7 +168,7 @@ class ContentPipelineFlow(Flow[ContentPipelineState]):
             </research>
             """)
         else:  # improve it
-            self.state.linkedin = llm.call(f"""
+            result = llm.call(f"""
             You wrote this linkedin post, but it does not have a good virality score because of {self.state.score.reason}
 
             <goal>
@@ -186,24 +192,50 @@ class ContentPipelineFlow(Flow[ContentPipelineState]):
             </research>
             """)
 
+        self.state.linkedin = Linkedin.model_validate_json(result)
+
     ################# 📊 CHECK QUALITY 📊 #################
     @listen(handle_make_blog)
     def check_seo(self):
-        print(self.state.blog_post)
-        print(f"Checking SEO for {self.state.topic}")
+        result = (
+            SeoCrew()
+            .crew()
+            .kickoff(
+                inputs={
+                    "topic": self.state.topic,
+                    "blog_post": self.state.blog_post.model_dump_json(),
+                }
+            )
+        )
+        self.state.score = result.pydantic
 
     @listen(or_(handle_make_tweet, handle_make_linkedin))
     def check_virality(self):
-        print(self.state.tweet)
-        print(self.state.linkedin)
-        print(f"Checking virality for {self.state.topic}")
+        result = (
+            ViralityCrew()
+            .crew()
+            .kickoff(
+                inputs={
+                    "topic": self.state.topic,
+                    "content_type": self.state.content_type,
+                    "content": (
+                        self.state.tweet.model_dump_json()
+                        if self.state.contenty_type == "tweet"
+                        else self.state.linkedin_post.model_dump_json()
+                    ),
+                }
+            )
+        )
+        self.state.score = result.pydantic
 
     @router(or_(check_seo, check_virality))
     def score_router(self):
         content_type = self.state.content_type
         score = self.state.score
 
-        if score >= 8:
+        print(score)
+
+        if score.score >= 7:
             return "checks_passed"
         else:
             if content_type == "blog":
@@ -217,7 +249,20 @@ class ContentPipelineFlow(Flow[ContentPipelineState]):
 
     @listen("checks_passed")
     def finalize_content(self):
-        print(f"Finalizing content for {self.state.topic}")
+        """Finalize the content"""
+        print("🎉 Finalizing content...")
+
+        if self.state.content_type == "blog":
+            print(f"📝 Blog Post: {self.state.blog_post.title}")
+            print(f"🔍 SEO Score: {self.state.score.score}/10")
+        elif self.state.content_type == "tweet":
+            print(f"🐦 Tweet: {self.state.tweet}")
+            print(f"🚀 Virality Score: {self.state.score.score}/10")
+        elif self.state.content_type == "linkedin":
+            print(f"💼 LinkedIn: {self.state.linkedin_post.title}")
+            print(f"🚀 Virality Score: {self.state.score.score}/10")
+
+        print("✅ Content ready for publication!")
 
 
 flow = ContentPipelineFlow()
@@ -227,7 +272,7 @@ flow = ContentPipelineFlow()
 
 flow.kickoff(
     inputs={
-        "content_type": "linkedin",
-        "topic": "Vibe Coding",
+        "content_type": "blog",
+        "topic": "CPR Training",
     }
 )
