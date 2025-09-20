@@ -1,41 +1,67 @@
+import dotenv
+import asyncio
 import streamlit as st
-import time
+from agents import Agent, Runner, SQLiteSession
 
-st.header("ChatGPT Agent")
+dotenv.load_dotenv()
 
-st.write("Hello from chatgpt-agent!!!!")
+if "agent" not in st.session_state:
+    agent = Agent(
+        name="ChatGPT Agent",
+        model="gpt-5-nano-2025-08-07",
+        instructions="You are a helpful assistant that can answer questions and help with tasks.",
+    )
+    st.session_state["agent"] = agent
+else:
+    agent = st.session_state["agent"]
 
-st.button("Click me")
+if "session" not in st.session_state:
+    session = SQLiteSession(session_id="chat-history", db_path="chat-gpt-memory.db")
+    st.session_state["session"] = session
+else:
+    session = st.session_state["session"]
 
-st.text_input("Enter your name")
 
-st.feedback("faces")
+async def paint_history():
+    mesasges = await session.get_items()
+    for message in mesasges:
+        if "role" in message:
+            with st.chat_message(message["role"]):
+                if message["role"] == "user":
+                    st.write(message["content"])
+                else:
+                    st.write(message["content"][0]["text"])
+
+
+asyncio.run(paint_history())
+
+
+async def run_agent(prompt):
+    with st.chat_message("assistant"):
+        text_placeholder = st.empty()
+        response = ""
+        stream = Runner.run_streamed(
+            agent,
+            prompt,
+            session=session,
+        )
+
+        async for event in stream.stream_events():
+            if event.type == "raw_response_event":
+                if event.data.type == "response.output_text.delta":
+                    response += event.data.delta
+                    text_placeholder.write(response)
+
+
+prompt = st.chat_input("Enter your message")
+if prompt:
+    with st.chat_message("user"):
+        st.write(prompt)
+    asyncio.run(run_agent(prompt))
 
 
 with st.sidebar:
-    st.badge("Badge")
-
-
-tab1, tab2, tab3 = st.tabs(["Tab 1", "Tab 2", "Tab 3"])
-
-with tab1:
-    st.write("This is tab 1")
-
-with tab2:
-    st.write("This is tab 2")
-
-with tab3:
-    st.write("This is tab 3")
-
-
-with st.chat_message("ai"):
-    st.text("Hello, how are you?")
-    with st.status("thinking") as status:
-        status.update(label="thinking", state="running")
-        time.sleep(2)
-        status.update(label="thinking", state="complete")
-with st.chat_message("human"):
-    st.text("Hi")
-
-
-st.chat_input("Enter your message", accept_file=True)
+    reset = st.button("Reset memory")
+    if reset:
+        asyncio.run(session.clear_session())
+    st.write(asyncio.run(session.get_items()))
