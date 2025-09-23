@@ -1,3 +1,4 @@
+import base64
 import dotenv
 import asyncio
 import streamlit as st
@@ -46,9 +47,17 @@ async def paint_history():
         if "role" in message:
             with st.chat_message(message["role"]):
                 if message["role"] == "user":
-                    st.write(message["content"])
+                    content = message["content"]
+                    if isinstance(content, str):
+                        st.write(content)
+                    elif isinstance(content, list):
+                        for part in content:
+                            if "image_url" in part:
+                                st.image(part["image_url"])
+
                 else:
-                    st.write(message["content"][0]["text"].replace("$", "\$"))
+                    if message["type"] == "message":
+                        st.write(message["content"][0]["text"].replace("$", "\$"))
 
         if "type" in message:
             if message["type"] == "web_search_call":
@@ -120,7 +129,7 @@ async def run_agent(prompt):
 prompt = st.chat_input(
     "Enter your message",
     accept_file=True,
-    file_type=["pdf", "docx", "txt"],
+    file_type=["pdf", "docx", "txt", "jpg", "jpeg", "png"],
 )
 
 if prompt:
@@ -137,6 +146,30 @@ if prompt:
                         vector_store_id=VECTORE_STORE_ID, file_id=uploaded_file.id
                     )
                     status.update(label="✅ File uploaded", state="complete")
+        elif file.type.startswith("image/"):
+            with st.status("📄 Uploading image...") as status:
+                file_bytes = file.getvalue()
+                base64_bytes = base64.b64encode(file_bytes).decode("utf-8")
+                data_uri = f"data:{file.type};base64,{base64_bytes}"
+                asyncio.run(
+                    session.add_items(
+                        [
+                            {
+                                "role": "user",
+                                "content": [
+                                    {
+                                        "type": "input_image",
+                                        "detail": "auto",
+                                        "image_url": data_uri,
+                                    }
+                                ],
+                            }
+                        ]
+                    )
+                )
+                status.update(label="✅ Image uploaded", state="complete")
+            with st.chat_message("user"):
+                st.image(data_uri)
 
     if prompt.text:
         with st.chat_message("user"):
