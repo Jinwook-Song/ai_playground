@@ -35,7 +35,7 @@ async def paint_history():
                     st.write(message["content"])
                 else:
                     if message["type"] == "message":
-                        st.write(message["content"][0]["text"].replace("$", "\$"))
+                        st.write(message["content"][0]["text"].replace("$", "\\$"))
 
 
 asyncio.run(paint_history())
@@ -60,7 +60,7 @@ async def run_agent(message):
                 if event.type == "raw_response_event":
                     if event.data.type == "response.output_text.delta":
                         response += event.data.delta
-                        text_placeholder.write(response.replace("$", "\$"))
+                        text_placeholder.write(response.replace("$", "\\$"))
         except InputGuardrailTripwireTriggered:
             st.write("I can't help you with that.")
 
