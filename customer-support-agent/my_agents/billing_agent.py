@@ -1,11 +1,11 @@
 from agents import Agent, RunContextWrapper
 from models import UserAccountContext
 from tools import (
-    AgentToolUsageLoggingHooks,
-    apply_billing_credit,
     lookup_billing_history,
     process_refund_request,
     update_payment_method,
+    apply_billing_credit,
+    AgentToolUsageLoggingHooks,
 )
 
 
@@ -51,6 +51,6 @@ billing_agent = Agent(
         process_refund_request,
         update_payment_method,
         apply_billing_credit,
-        AgentToolUsageLoggingHooks,
     ],
+    hooks=AgentToolUsageLoggingHooks(),
 )

@@ -8,6 +8,7 @@ from models import UserAccountContext
 from my_agents.triage_agent import triage_agent
 
 dotenv.load_dotenv()
+
 client = OpenAI()
 
 user_account_ctx = UserAccountContext(

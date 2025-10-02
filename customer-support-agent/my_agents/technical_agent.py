@@ -1,10 +1,10 @@
 from agents import Agent, RunContextWrapper
 from models import UserAccountContext
 from tools import (
-    AgentToolUsageLoggingHooks,
-    escalate_to_engineering,
-    provide_troubleshooting_steps,
     run_diagnostic_check,
+    provide_troubleshooting_steps,
+    escalate_to_engineering,
+    AgentToolUsageLoggingHooks,
 )
 
 
@@ -49,6 +49,6 @@ technical_agent = Agent(
         run_diagnostic_check,
         provide_troubleshooting_steps,
         escalate_to_engineering,
-        AgentToolUsageLoggingHooks,
     ],
+    hooks=AgentToolUsageLoggingHooks(),
 )

@@ -1,11 +1,11 @@
 from agents import Agent, RunContextWrapper
 from models import UserAccountContext
 from tools import (
-    AgentToolUsageLoggingHooks,
-    expedite_shipping,
-    initiate_return_process,
     lookup_order_status,
+    initiate_return_process,
     schedule_redelivery,
+    expedite_shipping,
+    AgentToolUsageLoggingHooks,
 )
 
 
@@ -50,6 +50,6 @@ order_agent = Agent(
         initiate_return_process,
         schedule_redelivery,
         expedite_shipping,
-        AgentToolUsageLoggingHooks,
     ],
+    hooks=AgentToolUsageLoggingHooks(),
 )
