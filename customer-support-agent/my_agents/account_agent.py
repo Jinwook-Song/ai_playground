@@ -1,5 +1,13 @@
 from agents import Agent, RunContextWrapper
 from models import UserAccountContext
+from tools import (
+    AgentToolUsageLoggingHooks,
+    deactivate_account,
+    enable_two_factor_auth,
+    export_account_data,
+    reset_user_password,
+    update_account_email,
+)
 
 
 def dynamic_account_agent_instructions(
@@ -28,7 +36,7 @@ def dynamic_account_agent_instructions(
     
     SECURITY PROTOCOLS:
     - Always verify identity before account changes
-    - Recommend strong passwords and 2FA
+    - Recommend strong passwords and 2FA¡
     - Explain security features clearly
     - Document any security-related changes
     
@@ -45,4 +53,12 @@ def dynamic_account_agent_instructions(
 account_agent = Agent(
     name="Account Management Agent",
     instructions=dynamic_account_agent_instructions,
+    tools=[
+        reset_user_password,
+        enable_two_factor_auth,
+        update_account_email,
+        deactivate_account,
+        export_account_data,
+        AgentToolUsageLoggingHooks,
+    ],
 )
