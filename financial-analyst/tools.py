@@ -1,9 +1,10 @@
 import dotenv
 
-dotenv.load_dotenv()
 import re
 import os
 from firecrawl import FirecrawlApp, ScrapeOptions
+
+dotenv.load_dotenv()
 
 
 def web_search_tool(query: str):
