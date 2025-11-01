@@ -1,0 +1,454 @@
+{
+  "eval_set_id": "TravelEval",
+  "name": "TravelEval",
+  "eval_cases": [
+    {
+      "eval_id": "TokyoAugust",
+      "conversation": [
+        {
+          "invocation_id": "e-798398d6-e860-408f-a665-b8821f953687",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Hi!"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Hello! How can I assist you with your travel plans today?"
+              }
+            ]
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1756302058.016022
+        },
+        {
+          "invocation_id": "e-e934022e-4274-4501-8cc8-aef20c4d0b31",
+          "user_content": {
+            "parts": [
+              {
+                "text": "I want to go to Tokyo in August"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "That sounds exciting! Tokyo is a vibrant city with plenty to see and do. Let me help you with some essential information to plan your trip.\n\n1. **Weather in August:** I'll check the typical weather conditions during August in Tokyo so you can pack accordingly.\n\n2. **Local Attractions:** I can provide you with a list of must-see attractions and points of interest in Tokyo.\n\n3. **Currency Exchange:** I can also look up the current exchange rate for converting your currency to Japanese Yen.\n\nWould you like me to get all this information for you?"
+              }
+            ]
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1756302065.935937
+        },
+        {
+          "invocation_id": "e-7429922d-6a38-405a-9d26-f53f707d682e",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Yes."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Here's some helpful information for your trip to Tokyo in August:\n\n### Weather in Tokyo\n- **Temperature:** 22°C (about 72°F)\n- **Condition:** Partly cloudy\n- **Humidity:** 65%\n- **Wind:** 12 km/h\n- **Forecast:** Mild weather with occasional clouds expected throughout the day.\n\n### Local Attractions\nTokyo is full of amazing places to visit. Here are some top attractions you might want to consider:\n\n1. **Tokyo Tower**: A famous communications and observation tower with a beautiful view of the city. Rating: 4.5\n2. **Senso-ji**: An ancient Buddhist temple, offering a glimpse into the cultural and historical aspects of Japan. Rating: 4.6\n3. **Shibuya Crossing**: Known as the busiest pedestrian crossing in the world, definitely a must-see! Rating: 4.4\n4. **Meiji Shrine**: A serene Shinto shrine dedicated to Emperor Meiji. Rating: 4.7\n5. **Tokyo Skytree**: Another iconic broadcasting and observation tower, offering breathtaking views. Rating: 4.6\n\n### Currency Exchange\n- **Exchange Rate:** 1 USD = 149.5 JPY\n- This means that if you convert 1 USD, you'll get approximately 149.5 JPY.\n\nFeel free to ask if you need more information or further assistance with your travel plans!"
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "id": "call_BsQ8CrvJyWYwpIsPeFn0odtA",
+                "args": {
+                  "location": "Tokyo"
+                },
+                "name": "get_weather"
+              },
+              {
+                "id": "call_4tN3plFludb86jO0ojiHxVFJ",
+                "args": {
+                  "location": "Tokyo"
+                },
+                "name": "get_local_attractions"
+              },
+              {
+                "id": "call_7BPdcftMoKwXFSOgLsuK7qMs",
+                "args": {
+                  "from_currency": "USD",
+                  "to_currency": "JPY"
+                },
+                "name": "get_exchange_rate"
+              }
+            ]
+          },
+          "creation_timestamp": 1756302074.594582
+        }
+      ],
+      "session_input": {
+        "app_name": "travel_advisor_agent",
+        "user_id": "user"
+      },
+      "creation_timestamp": 1756302125.373034
+    },
+    {
+      "eval_id": "Paris.Sept.OneByOne",
+      "conversation": [
+        {
+          "invocation_id": "e-00384eb7-f487-4e63-a443-aa82fd12b891",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Hi!"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Hello! How can I assist you with your travel plans today?"
+              }
+            ]
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1756302770.643573
+        },
+        {
+          "invocation_id": "e-dd464fde-9bdc-4029-acca-79188d1950c7",
+          "user_content": {
+            "parts": [
+              {
+                "text": "What is the weather in Paris in September."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "In September, the weather in Paris is generally mild and pleasant. Currently, it's 22°C with partly cloudy skies. There's a humidity level of 65%, and the wind is blowing at 12 km/h. Throughout the day, you can expect mild weather with occasional clouds. It's a great time for sightseeing or enjoying outdoor cafes! If you have any other questions or need additional information about your trip, feel free to ask."
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "id": "call_b8rM1lJhFFThc9O3zzOtHVhv",
+                "args": {
+                  "location": "Paris, France"
+                },
+                "name": "get_weather"
+              }
+            ]
+          },
+          "creation_timestamp": 1756302782.234563
+        },
+        {
+          "invocation_id": "e-b05591d4-306f-4435-91cb-e2032c63f98c",
+          "user_content": {
+            "parts": [
+              {
+                "text": "What about the currency?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The current exchange rate for USD to EUR is approximately 0.92. This means that 1 US Dollar would convert to about 0.92 Euros. If you're planning to travel to Paris, it's a good idea to keep this rate in mind for budgeting and expenses.\n\nIf you need any assistance with currency exchange, local attractions, or anything else for your trip to Paris, feel free to let me know!"
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "id": "call_klI8IhPWHnEu8DbHvHYY8678",
+                "args": {
+                  "from_currency": "USD",
+                  "to_currency": "EUR",
+                  "amount": 1
+                },
+                "name": "get_exchange_rate"
+              }
+            ]
+          },
+          "creation_timestamp": 1756302790.098091
+        },
+        {
+          "invocation_id": "e-10f522df-341f-408a-b02c-4ecc696a10f4",
+          "user_content": {
+            "parts": [
+              {
+                "text": "And landmarks?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Here are some popular landmarks and attractions you might want to visit in Paris:\n\n1. **Eiffel Tower**: An iconic symbol of Paris, offering stunning views of the city from the top.\n\n2. **Louvre Museum**: Home to thousands of works of art, including the Mona Lisa and the Venus de Milo.\n\n3. **Notre-Dame Cathedral**: A masterpiece of French Gothic architecture, with intricate sculptures and stained-glass windows.\n\n4. **Montmartre**: This historic district is known for its bohemian atmosphere, the Sacré-Cœur Basilica, and artistic history.\n\n5. **Champs-Élysées and Arc de Triomphe**: A famous avenue that's perfect for shopping and dining, ending at the impressive Arc de Triomphe.\n\n6. **Seine River Cruise**: A relaxing way to see many of Paris's famous sites from the water.\n\n7. **Palace of Versailles**: Although not in the city center, it's a must-visit for its grand palace and amazing gardens.\n\nThese landmarks offer a mix of cultural, historical, and modern experiences that capture the essence of Paris. If you have any specific interests or need more recommendations, feel free to ask!"
+              }
+            ]
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "id": "call_B8IQkCorcuUFyKJfprJ98Fr8",
+                "args": {
+                  "location": "Paris, France"
+                },
+                "name": "get_local_attractions"
+              }
+            ]
+          },
+          "creation_timestamp": 1756302800.331168
+        }
+      ],
+      "session_input": {
+        "app_name": "travel_advisor_agent",
+        "user_id": "user"
+      },
+      "creation_timestamp": 1756302826.731252
+    },
+    {
+      "eval_id": "12월유후인",
+      "conversation": [
+        {
+          "invocation_id": "e-1521f95b-d94c-4284-84da-4ae1306f7c11",
+          "user_content": {
+            "parts": [
+              {
+                "text": "12월에 일본 유후인 여행 추천해줘"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "좋은 선택이에요! 12월의 유후인은 온천으로 몸을 따뜻하게 녹이고 느긋하게 마을 분위기를 즐기기에 아주 좋습니다.\n\n현재 날씨 요약\n- 유후인, 일본: 약 22°C, 구름 많음, 습도 65%, 바람 12km/h\n- 예보(당일): 가벼운 구름 속의 온화한 날씨가 계속될 가능성이 큽니다.\n- 12월에는 이 어깨 계절에 비가 올 수도 있고, 아침저녁으로는 다소 쌀쌀해질 수 있으니 겹겹이 입는 옷이 좋습니다.\n\n12월 유후인 여행 추천 포인트\n- 온천 중심의 느긋한 휴식: 유후인은 온천 마을 그 자체가 큰 매력이에요. 노천탕이 있는 료칸에서의 숙박이 특히 추천됩니다.\n- 산책로와 풍경: Kinrin Lake(킨린 호수) 주변의 겨울 아침 안개나 노을 풍경은 아주 운치 있습니다. 마을 골목길인 Yunotsubo Kaido도 산책하기 좋습니다.\n- 먹거리 체험: 유후인은 야부(닭고기와 두부 skin처럼 얇게 만든 야부)나 현지 해산물, 온천 마을 특산 요리 등을 맛보기에 좋습니다. 특히 온천 숙소에서 제공하는 코스 요리와 차분한 분위기가 여유를 더해줍니다.\n- 예술·카페 분위기: 소규모 미술관이나 카페가 많아 여유로운 오후를 보내기 좋습니다. 겨울에는 따뜻한 카페에서 시간을 보내는 것도 좋습니다.\n\n2박 3일(또는 3일) 추천 일정 예시\n- Day 1\n  - 도착 → 료칸 체크인 및 온천욕\n  - Yunotsubo Kaido 산책: 상점과 카페를 구경하며 기념품 쇼핑\n  - Kinrin Lake 산책: 해질녘이나 저녁에 조용하게 산책하면 분위기가 좋습니다\n  - 저녁식사: 지역 특산 요리(야부 등)와 함께 여유로운 만찬\n- Day 2\n  - 아침 온천 또는 노천탕으로 하루 시작\n  - 마을 산책 또는 짧은 트레킹: Mount Yufu 등반 가능 여부는 날씨에 따라 결정\n  - 점심: 가벼운 현지 음식\n  - 오후: 예술관이나 카페 방문, 여유로운 시간 보내기\n  - 저녁: 료칸 내 코스 요리나 현지 식당에서 마무리\n- Day 3\n  - 여유롭게 체크아웃 전까지 마을 구경\n  - Beppu나 다른 인근 온천 지역으로의 짧은 당일치기 옵션도 고려 가능\n\n활동 아이디어(선택지)\n- Mount Yufu 등반: 겨울에는 해가 짧으니 시간 관리가 필요합니다. 날씨가 좋으면 오전에 가볍게 도전해보세요.\n- Yufuin Floral Village, 카페 투어: 사진 찍기 좋은 포인트가 많고, 휴식에 좋습니다.\n- 온천 체류형 숙소 선택: 가능하면 프라이빗 온천이 있는 료칸이나 객실 욕조를 갖춘 숙소를 추천합니다.\n\n실용 팁\n- 옷차림: 겨울이지만 12월엔 낮과 밤의 기온 차가 큽니다. 레이어링이 좋고, 보온성이 좋은 외투, 모자, 스카프, 보온 신발을 준비하세요.\n- 날씨 확인: 당일 날씨에 따라 Mount Yufu 트레킹 여부를 결정하시는 게 좋습니다. 필요 시 트레킹 코스 정보도 확인해 드릴게요.\n- 일정 여유: 휴식 위주로 천천히 즐기되, 마지막 날은 기차나 비행기 시간에 맞춰 여유 있게 계획하세요.\n- 예산: 료칸 숙박은 클래식한 분위기의 곳은 다소 비용이 나가지만, 중간급 료칸이나 온천호텔도 충분히 좋습니다.\n\n원하신 날짜 범위(예: 12월 8–10일, 12월 말 등)와 예산, 선호 활동(온천 집중, 산책, 미술관 방문 등)을 알려주시면 더 구체적인 일정과 추천 숙소/체험 옵션을 정리해 드리겠습니다. 또한 exact 날짜의 날씨 예보나 교통편 정보도 함께 찾아드릴 수 있어요."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "invocation_events": [
+              {
+                "author": "TravelAdvisorAgent",
+                "content": {
+                  "parts": [
+                    {
+                      "function_call": {
+                        "id": "call_nwbjZmHJjuvRKmS51HCG3QKz",
+                        "args": {
+                          "location": "Yufuin, Japan"
+                        },
+                        "name": "get_weather"
+                      }
+                    },
+                    {
+                      "function_call": {
+                        "id": "call_FwmBOdoSjiX7ChpT64PO03hX",
+                        "args": {
+                          "location": "Yufuin",
+                          "category": "onsen"
+                        },
+                        "name": "get_local_attractions"
+                      }
+                    }
+                  ],
+                  "role": "model"
+                }
+              },
+              {
+                "author": "TravelAdvisorAgent",
+                "content": {
+                  "parts": [
+                    {
+                      "function_response": {
+                        "id": "call_nwbjZmHJjuvRKmS51HCG3QKz",
+                        "name": "get_weather",
+                        "response": {
+                          "location": "Yufuin, Japan",
+                          "temperature": "22°C",
+                          "condition": "Partly cloudy",
+                          "humidity": "65%",
+                          "wind": "12 km/h",
+                          "forecast": "Mild weather with occasional clouds expected throughout the day"
+                        }
+                      }
+                    },
+                    {
+                      "function_response": {
+                        "id": "call_FwmBOdoSjiX7ChpT64PO03hX",
+                        "name": "get_local_attractions",
+                        "response": {
+                          "location": "Yufuin",
+                          "category": "onsen",
+                          "attractions": [],
+                          "total_count": 0
+                        }
+                      }
+                    }
+                  ],
+                  "role": "user"
+                }
+              }
+            ]
+          },
+          "creation_timestamp": 1761992741.198522
+        }
+      ],
+      "session_input": {
+        "app_name": "travel_advisor_agent",
+        "user_id": "user"
+      },
+      "creation_timestamp": 1761992845.176049
+    },
+    {
+      "eval_id": "Paris.Dec.OneByOne",
+      "conversation": [
+        {
+          "invocation_id": "e-f99ecf16-5f63-49b9-9ca3-971eee08e365",
+          "user_content": {
+            "parts": [
+              {
+                "text": "안녕"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "안녕하세요! 여행 관련해서 날씨 확인, 환율 계산, 현지 명소 정보 등 도와드려요. 원하시는 도시나 나라를 알려주시면 바로 정보를 드릴게요.\n\n예시:\n- 날씨: \"도쿄 오늘 날씨\"\n- 명소: \"파리의 인기 명소\"\n- 환전: \"USD에서 KRW 환율\"\n\n어떤 곳으로 여행 계획 중이신가요? 위치를 알려주시면 상세히 도와드리겠습니다."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1761993167.49842
+        },
+        {
+          "invocation_id": "e-13cccafd-7d9b-433d-8c3e-fd5be779fc7c",
+          "user_content": {
+            "parts": [
+              {
+                "text": "12월에 파리 날씨 어떄"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "12월의 파리는 겨울입니다. 대략적인 기온과 특징은 다음과 같아요.\n\n- 기온: 낮 기온은 보통 6–8°C 정도, 밤엔 0–5°C 정도로 떨어질 수 있습니다. 바람이 강하게 불 수 있고 비나 이슬비가 내리는 날이 많아요.\n- 해와 날씨: 일조 시간이 짧고 흐린 날이 많습니다. 추운 실외보다는 따뜻한 카페나 박물관 같은 실내를 많이 이용하게 됩니다.\n- 옷차림 팁: 두꺼운 코트와 층층이 입는 레이어링, 방수 신발, 스카프, 장갑, 우산을 챙기세요.\n- 관광 팁: 크리스마스 마켓과 겨울 축제가 많이 열려 분위기가 아주 좋습니다. 다만 성수기라 인파와 가격이 올라가니 미리 티켓을 예매하면 편합니다.\n\n원하시면 특정 날짜를 알려주시면 그 기간의 날씨 예보를 더 구체적으로 확인해 드리고, 필요한 짐 싸기 체크리스트나 일정 아이디어도 제안해 드릴게요. 파리의 현재 날씨나 근래 기상 정보가 필요하면 말씀해 주세요."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1761993198.811851
+        },
+        {
+          "invocation_id": "e-624fa44c-f33e-4b46-9a22-84d082358ca9",
+          "user_content": {
+            "parts": [
+              {
+                "text": "환율은 어때?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "좋아요. 현재 환율 정보를 바로 확인해 드릴게요.\n\n원하시는 화폐 페어를 알려주실 수 있을까요?\n예시:\n- EUR ↔ KRW (유로 vs 원)\n- USD ↔ EUR\n- USD ↔ KRW\n\n또 환산하고 싶은 금액이 있으면 함께 알려주시면 해당 금액으로도 계산해 드립니다.\n\n파리 여행에 가장 자주 쓰는 페어는 EUR ↔ KRW일 가능성이 큽니다. 지금 바로 EUR ↔ KRW 환율을 확인해 드릴까요? 아니면 다른 페어를 원하나요?"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1761993220.534138
+        },
+        {
+          "invocation_id": "e-96a10128-0a46-4093-8733-85d5deb4e8e9",
+          "user_content": {
+            "parts": [
+              {
+                "text": "랜드마크는"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "좋아요. 파리의 대표적인 랜드마크를 소개해 드릴게요.\n\n- 에펠탑 (Tour Eiffel) — 파리의 상징. 전망대에서 도시를 내려다보는 뷰가 훌륭해요. 야간 조명도 놓치지 마세요.\n- 루브르 박물관 (Louvre) — 세계적으로 유명한 미술관. 모나리자 등 걸작이 많고, 지상과 지하의 여러 전시를 한꺼번에 즐길 수 있어요.\n- 개선문 (Arc de Triomphe)와 샤를 드골 광장 일대 — 역사의 흔적이 남아있는 대형 기념물로, 정상에서 파노라마 뷰가 멋집니다.\n- 몽마르트 언덕과 사크레쾨르 대성당 (Montmartre / Sacré-Cœur) — 언덕 위의 멋진 전망과 예술가 분위기가 매력적이에요.\n- 노트르담 대성당 (Notre-Dame Cathedral) — 현재 복원 중이지만 외부와 주변 분위기를 즐기기 좋아요. 정면과 주변 골목길이 아름답습니다.\n- 오르세 미술관 (Musée d'Orsay) — 인상파 중심의 아름다운 건물과 작품들. 강가를 따라 걷다 들르기 좋아요.\n- 센 강 유람선 (Seine River Cruise) — 강을 따라 파리의 주요 랜드마크를 다른 각도에서 감상하기 좋습니다.\n- 센터 포피도 (Centre Pompidou)나 팔레 가르니에 (Opéra Garnier) — 현대미술과 화려한 건축 미학을 원하실 때 추천.\n\n원하시면 각 랜드마크의 위치, 운영 시간, 입장료, 가장 좋은 방문 시간 등 상세 정보를 함께 정리해 드릴게요. 특정 장소를 골라 주시면 정확한 방문 팁이나 일정 아이디어도 제안해 드리겠습니다. 또한 현재 시점의 개방 여부나 입장권 예매 방법도 확인해 드릴 수 있어요. 관심 있는 곳이 있나요?"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "invocation_events": [
+              {
+                "author": "TravelAdvisorAgent",
+                "content": {
+                  "parts": [
+                    {
+                      "function_call": {
+                        "id": "call_Jc84opghP9x11jyj5uqoaQgE",
+                        "args": {
+                          "location": "Paris",
+                          "category": "landmarks"
+                        },
+                        "name": "get_local_attractions"
+                      }
+                    }
+                  ],
+                  "role": "model"
+                }
+              },
+              {
+                "author": "TravelAdvisorAgent",
+                "content": {
+                  "parts": [
+                    {
+                      "function_response": {
+                        "id": "call_Jc84opghP9x11jyj5uqoaQgE",
+                        "name": "get_local_attractions",
+                        "response": {
+                          "location": "Paris",
+                          "category": "landmarks",
+                          "attractions": [],
+                          "total_count": 0
+                        }
+                      }
+                    }
+                  ],
+                  "role": "user"
+                }
+              }
+            ]
+          },
+          "creation_timestamp": 1761993238.660388
+        }
+      ],
+      "session_input": {
+        "app_name": "travel_advisor_agent",
+        "user_id": "user"
+      },
+      "creation_timestamp": 1761993278.7273118
+    }
+  ],
+  "creation_timestamp": 1756301635.211605
+}
