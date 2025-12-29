@@ -15,3 +15,20 @@ def test_full_graph(email, category, priority_score):
 
     assert result["category"] == category
     assert result["priority_score"] == priority_score
+
+
+def test_individual_nodes():
+    # categorize_email
+    result = graph.nodes["categorize_email"].invoke(
+        {"email": "i have an offer for you!"}
+    )
+
+    assert result["category"] == "spam"
+
+    # assing_priority
+    result = graph.nodes["assing_priority"].invoke({"category": "spam"})
+    assert result["priority_score"] == 1
+
+    # draft_response
+    result = graph.nodes["draft_response"].invoke({"category": "spam"})
+    assert "Go away" in result["response"]
