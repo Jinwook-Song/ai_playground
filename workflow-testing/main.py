@@ -3,6 +3,8 @@ from typing_extensions import TypedDict
 from langgraph.graph import StateGraph, START, END
 from langgraph.checkpoint.memory import MemorySaver
 
+checkpoint = MemorySaver()
+
 
 class EmailState(TypedDict):
     email: str
@@ -60,9 +62,9 @@ graph_builder.add_edge("categorize_email", "assing_priority")
 graph_builder.add_edge("assing_priority", "draft_response")
 graph_builder.add_edge("draft_response", END)
 
-graph = graph_builder.compile()
+graph = graph_builder.compile(checkpointer=checkpoint)
 
 
-result = graph.invoke({"email": "i have an offer for you!"})
+# result = graph.invoke({"email": "i have an offer for you!"})
 
-print(result)
+# print(result)

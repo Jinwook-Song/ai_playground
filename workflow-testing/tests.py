@@ -11,7 +11,7 @@ from main import graph
     ],
 )
 def test_full_graph(email, category, priority_score):
-    result = graph.invoke({"email": email})
+    result = graph.invoke({"email": email}, config={"configurable": {"thread_id": "2"}})
 
     assert result["category"] == category
     assert result["priority_score"] == priority_score
@@ -32,3 +32,30 @@ def test_individual_nodes():
     # draft_response
     result = graph.nodes["draft_response"].invoke({"category": "spam"})
     assert "Go away" in result["response"]
+
+
+def test_partial_execution():
+    graph.update_state(
+        config={
+            "configurable": {
+                "thread_id": "1",
+            },
+        },
+        values={
+            "email": "please check out this offer",
+            "category": "spam",
+        },
+        as_node="categorize_email",
+    )
+
+    result = graph.invoke(
+        None,
+        config={
+            "configurable": {
+                "thread_id": "1",
+            },
+        },
+        interrupt_after="draft_response",
+    )
+
+    assert result["priority_score"] == 1
