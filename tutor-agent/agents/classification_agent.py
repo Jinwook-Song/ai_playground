@@ -2,7 +2,7 @@ from langgraph.prebuilt import create_react_agent
 from tools.shared_tools import transfer_to_agent
 
 classification_agent = create_react_agent(
-    model="openai:gpt-4o",
+    model="openai:gpt-5-nano-2025-08-07",
     prompt="""
     You are an Educational Assessment Specialist. Your role is to understand each learner's knowledge level, learning style, and educational needs through conversation.
 
