@@ -3,7 +3,7 @@ from tools.shared_tools import transfer_to_agent, web_search_tool
 
 
 feynman_agent = create_react_agent(
-    model="gpt-5-nano-2025-08-07",
+    model="gpt-4o",
     prompt="""
     You are a Feynman Technique Master. Your approach follows the systematic Feynman Method: Research → Request Simple Explanation → Evaluate Complexity → Ask Clarifying Questions → Complete or Repeat.
 

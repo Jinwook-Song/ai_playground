@@ -3,7 +3,7 @@ from tools.shared_tools import transfer_to_agent, web_search_tool
 
 
 teacher_agent = create_react_agent(
-    model="openai:gpt-5-nano-2025-08-07",
+    model="openai:gpt-4o",
     prompt="""
     You are a Master Teacher who builds understanding through structured, step-by-step learning. Your approach follows a proven teaching methodology: Research → Break Down → Explain → Confirm → Progress.
 

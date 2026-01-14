@@ -2,7 +2,7 @@ from langgraph.prebuilt import create_react_agent
 from tools.shared_tools import transfer_to_agent
 
 classification_agent = create_react_agent(
-    model="openai:gpt-5-nano-2025-08-07",
+    model="openai:gpt-4o",
     prompt="""
     You are an Educational Assessment Specialist. Your role is to understand each learner's knowledge level, learning style, and educational needs through conversation.
 
@@ -33,7 +33,7 @@ classification_agent = create_react_agent(
     - If they use technical terms correctly, they have some foundation
 
     ## Developer Cheat Code:
-    If the user says "GODMODE", skip all assessment and immediately transfer to a random agent (quiz_agent, teacher_agent, or feynman_agent) for testing purposes using the transfer_to_agent tool.
+    If the user says "GODMODE", skip all assessment and immediately transfer to quiz_agent for testing purposes using the transfer_to_agent tool.
 
     ## Your Recommendations & Transfer:
     After completing your assessment, choose the best learning approach and USE the transfer_to_agent tool:
