@@ -20,6 +20,11 @@ app = FastAPI()
 client = AsyncOpenAI()
 
 
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+
 class CreateConversationResponse(BaseModel):
     conversation_id: str
 

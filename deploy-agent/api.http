@@ -1,8 +1,8 @@
-POST http://localhost:8000/conversations
+POST https://deploy-agent-tutorial-production.up.railway.app/conversations
 
 ###
 
-POST http://localhost:8000/conversations/conv_6968eb4badc48190a1c05e30e9c3181b089b7aaf3851e0ce/message
+POST https://deploy-agent-tutorial-production.up.railway.app/conversations/conv_6968f5663a908194a694a8feeab561080a4f5905e234d0a1/message
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8000/conversations/conv_6968eb4badc48190a1c05e30e9c3181b089b7aaf3851e0ce/message/stream
+POST https://deploy-agent-tutorial-production.up.railway.app/conversations/conv_6968f5663a908194a694a8feeab561080a4f5905e234d0a1/message/stream
 Content-Type: application/json
 
 {
@@ -19,11 +19,11 @@ Content-Type: application/json
 }
 
 
-curl -N -X POST http://localhost:8000/conversations/conv_6968eb4badc48190a1c05e30e9c3181b089b7aaf3851e0ce/message/stream \
+curl -N -X POST https://deploy-agent-tutorial-production.up.railway.app/conversations/conv_6968f5663a908194a694a8feeab561080a4f5905e234d0a1/message/stream \
 -H "Content-Type: application/json" \
 -d '{"question": "대한민국의 GDP 순위는?"}'
 
 
-curl -N -X POST http://localhost:8000/conversations/conv_6968eb4badc48190a1c05e30e9c3181b089b7aaf3851e0ce/message/stream/all \
+curl -N -X POST https://deploy-agent-tutorial-production.up.railway.app/conversations/conv_6968f5663a908194a694a8feeab561080a4f5905e234d0a1/message/stream/all \
 -H "Content-Type: application/json" \
 -d '{"question": "대한민국의 GDP 순위는?"}'
