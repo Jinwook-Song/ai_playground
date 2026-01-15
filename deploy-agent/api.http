@@ -8,3 +8,22 @@ Content-Type: application/json
 {
     "question": "What is the first question i asked?"
 }
+
+###
+
+POST http://localhost:8000/conversations/conv_6968eb4badc48190a1c05e30e9c3181b089b7aaf3851e0ce/message/stream
+Content-Type: application/json
+
+{
+    "question": "What is the first question i asked?"
+}
+
+
+curl -N -X POST http://localhost:8000/conversations/conv_6968eb4badc48190a1c05e30e9c3181b089b7aaf3851e0ce/message/stream \
+-H "Content-Type: application/json" \
+-d '{"question": "대한민국의 GDP 순위는?"}'
+
+
+curl -N -X POST http://localhost:8000/conversations/conv_6968eb4badc48190a1c05e30e9c3181b089b7aaf3851e0ce/message/stream/all \
+-H "Content-Type: application/json" \
+-d '{"question": "대한민국의 GDP 순위는?"}'
