@@ -43,3 +43,7 @@ adk web
 
 - 역사 에이전트: http://127.0.0.1:8001/.well-known/agent-card.json
 - 철학 에이전트: http://127.0.0.1:8002/.well-known/agent-card.json
+
+## 참고 자료
+
+- [A2A 프로토콜 Python SDK 문서](https://a2a-protocol.org/latest/sdk/python/api/a2a.html#a2a.types.SendMessageSuccessResponse)
